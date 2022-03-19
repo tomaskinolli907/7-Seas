@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: c0b30c6d4b8cb5148bfa8a305cc56cc8
+  - enabled: 1
+    path: Assets/Scenes/SetupMenu.unity
+    guid: 8b8e609062febfe4488d6cc5d324ad3b
+  - enabled: 1
+    path: Assets/Scenes/DiceCupMenu.unity
+    guid: 45ec8ea7fd2d9574bb7b7955412062a1
+  - enabled: 1
+    path: Assets/Scenes/MapBuilder.unity
+    guid: 294fafe0c8d8dbb42a2ab8a8162a3239
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 49b22af2aceec684b96d1423b86558eb
+  - enabled: 1
+    path: Assets/Scenes/CustomizeShip.unity
+    guid: 37368710bf53f9f448f52e8a1ab1e13b
+  - enabled: 1
+    path: Assets/Scenes/SetupAdvanced.unity
+    guid: a1c25c8b24c99114980cb71b1d2c6795
+  - enabled: 1
+    path: Assets/Scenes/Cannon.unity
+    guid: e9680913334dde5458f4b9321d59677c
+  - enabled: 1
+    path: Assets/Scenes/CannonResults.unity
+    guid: c286ca82170dc794f9f32daf74e5c5ce
+  m_configObjects: {}

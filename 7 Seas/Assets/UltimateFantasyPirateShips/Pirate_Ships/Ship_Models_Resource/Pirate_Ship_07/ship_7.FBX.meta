@@ -1,0 +1,213 @@
+fileFormatVersion: 2
+guid: 8f9ca8b9a0ea4cd4ab9bda3541c99afb
+timeCreated: 1526623235
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bone023
+    100002: Bone024
+    100004: Bone025
+    100006: Bone026
+    100008: Bone027
+    100010: Bone028
+    100012: Bone029
+    100014: Bone030
+    100016: Bone031
+    100018: Bone032
+    100020: Bone033
+    100022: Bone034
+    100024: Dummy1
+    100026: Dummy2
+    100028: Dummy3
+    100030: Dummy4
+    100032: Dummy5
+    100034: Dummy6
+    100036: Dummy7
+    100038: Dummy8
+    100040: flag1
+    100042: flag2
+    100044: flag3
+    100046: //RootNode
+    100048: ship_part1
+    400000: Bone023
+    400002: Bone024
+    400004: Bone025
+    400006: Bone026
+    400008: Bone027
+    400010: Bone028
+    400012: Bone029
+    400014: Bone030
+    400016: Bone031
+    400018: Bone032
+    400020: Bone033
+    400022: Bone034
+    400024: Dummy1
+    400026: Dummy2
+    400028: Dummy3
+    400030: Dummy4
+    400032: Dummy5
+    400034: Dummy6
+    400036: Dummy7
+    400038: Dummy8
+    400040: flag1
+    400042: flag2
+    400044: flag3
+    400046: //RootNode
+    400048: ship_part1
+    4300000: ship_part1
+    4300002: flag2
+    4300004: flag3
+    4300006: flag1
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: flag1
+    13700002: flag2
+    13700004: flag3
+    13700006: ship_part1
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Dummy1
+        weight: 1
+      - path: Dummy1/Dummy2
+        weight: 1
+      - path: Dummy1/Dummy3
+        weight: 1
+      - path: Dummy1/Dummy4
+        weight: 1
+      - path: Dummy1/Dummy5
+        weight: 1
+      - path: Dummy1/Dummy6
+        weight: 1
+      - path: Dummy1/Dummy6/Bone031
+        weight: 1
+      - path: Dummy1/Dummy6/Bone031/Bone032
+        weight: 1
+      - path: Dummy1/Dummy6/Bone031/Bone032/Bone033
+        weight: 1
+      - path: Dummy1/Dummy6/Bone031/Bone032/Bone033/Bone034
+        weight: 1
+      - path: Dummy1/Dummy7
+        weight: 1
+      - path: Dummy1/Dummy7/Bone023
+        weight: 1
+      - path: Dummy1/Dummy7/Bone023/Bone024
+        weight: 1
+      - path: Dummy1/Dummy7/Bone023/Bone024/Bone025
+        weight: 1
+      - path: Dummy1/Dummy7/Bone023/Bone024/Bone025/Bone026
+        weight: 1
+      - path: Dummy1/Dummy8
+        weight: 1
+      - path: Dummy1/Dummy8/Bone027
+        weight: 1
+      - path: Dummy1/Dummy8/Bone027/Bone028
+        weight: 1
+      - path: Dummy1/Dummy8/Bone027/Bone028/Bone029
+        weight: 1
+      - path: Dummy1/Dummy8/Bone027/Bone028/Bone029/Bone030
+        weight: 1
+      - path: flag1
+        weight: 1
+      - path: flag2
+        weight: 1
+      - path: flag3
+        weight: 1
+      - path: ship_part1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
