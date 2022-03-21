@@ -156,7 +156,7 @@ public class SceneChanger : MonoBehaviour
             }
             else
             {
-                CannonMinigame.DestroyShips();
+                CannonMinigame.DestroyObjects();
 
                 PlayerPrefs.SetInt("Player2Score", Convert.ToInt32(tempScore));
 
@@ -171,6 +171,8 @@ public class SceneChanger : MonoBehaviour
         }
         else 
         {
+            CannonMinigame.DestroyObjects();
+
             SceneManager.UnloadSceneAsync("Cannon");
             SceneManager.LoadScene(level, LoadSceneMode.Additive);
         }
