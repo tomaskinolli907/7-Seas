@@ -29,6 +29,11 @@ public class PlayerShip : MonoBehaviour
         currTreasure = amount;
     }
 
+    public void AddTreasure(float amount)
+    {
+        currTreasure += amount;
+    }
+
     public float GetTreasure()
     {
         return currTreasure;

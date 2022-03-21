@@ -26,6 +26,9 @@ public class CannonMinigame : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetInt("Treasure Score", 0);
+        PlayerPrefs.SetInt("score", 0);
+
         ships[0].AddComponent<ship_movement>();
         ships[1].AddComponent<ship_movement>();
 
@@ -37,6 +40,8 @@ public class CannonMinigame : MonoBehaviour
     {
         if (setPlayer && currShip == 1)
         {
+            PlayerPrefs.SetInt("Player1Score", 0);
+
             setPlayer = false;
 
             currShip++;
@@ -55,6 +60,8 @@ public class CannonMinigame : MonoBehaviour
         }
         else if (setPlayer && currShip == 2)
         {
+            PlayerPrefs.SetInt("Player2Score", 0);
+
             setPlayer = false;
 
             currShip++;
