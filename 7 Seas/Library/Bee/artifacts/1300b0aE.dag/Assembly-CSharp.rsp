@@ -417,6 +417,7 @@
 "Assets/Scripts/Game/MapLoad.cs"
 "Assets/Scripts/Game/PlayerShip.cs"
 "Assets/Scripts/Game/Pulse.cs"
+"Assets/Scripts/Game/ResultsManager.cs"
 "Assets/Scripts/GameControl.cs"
 "Assets/Scripts/GameLoopx.cs"
 "Assets/Scripts/GameSceneScripts/AlertWindow.cs"

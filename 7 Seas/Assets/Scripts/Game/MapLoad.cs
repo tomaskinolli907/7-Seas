@@ -227,6 +227,8 @@ public class MapLoad : MonoBehaviour
             RenderSettings.skybox = skyBox[0];
         }
 
+        treasureCurrent.text = "Player Treasure: " + shipInfo[playerIndex].GetTreasure().ToString();
+
         /*
         //Arrow Key Movement
         if (Input.GetKey(KeyCode.UpArrow) && !isMoving && player1.transform.position.z < upperBound - 10)
@@ -409,6 +411,10 @@ public class MapLoad : MonoBehaviour
 
                     hiddenBtns[1].onClick.Invoke();
 
+                    PlayerPrefs.SetString("Ship1", "PLAYER " + shipInfo[playerIndex].GetPlayerNum().ToString());
+
+                    ResultsManager.players[0] = shipInfo[playerIndex];
+
                     if (playerCombat)
                     {
                         CannonMinigame.setPlayer = true;
@@ -453,6 +459,10 @@ public class MapLoad : MonoBehaviour
         {
             if (player.GetCurrentPosition() == shipInfo[playerIndex].GetCurrentPosition() && player.GetName() != shipInfo[playerIndex].GetName())
             {
+                PlayerPrefs.SetString("Ship2", "PLAYER " + player.GetPlayerNum().ToString());
+
+                ResultsManager.players[1] = player;
+
                 return player.GetShip();
             }
         }
