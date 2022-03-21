@@ -3962,13 +3962,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965822864}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75b5be38e955b3b4c9c31b0ed6d0978f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 3
-  yCenter: 2
+  height: 1
+  yCenter: 1012
 --- !u!1 &981525221
 GameObject:
   m_ObjectHideFlags: 0
@@ -4309,6 +4309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f685191188dff5f46981f0915fc84ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skyBox:
+  - {fileID: 2100000, guid: 5beb55b4fdf24b4439fd6c3c009e3bc4, type: 2}
+  - {fileID: 2100000, guid: 1fa150649aa0e724392b713a58d1d6c1, type: 2}
   ButtonManager: {fileID: 1379713854}
   SceneManager: {fileID: 0}
   targets:
