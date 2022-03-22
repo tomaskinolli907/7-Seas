@@ -32,6 +32,8 @@ public class MapLoad : MonoBehaviour
     public Canvas tiles;
     public Button[] hiddenBtns;
     public Material[] skyBox;
+    public GameObject treasureShip;
+    public GameObject monster;
     public GameObject arrow;
 
     public float time;
@@ -49,6 +51,8 @@ public class MapLoad : MonoBehaviour
     HashSet<Vector3Int> positions;
     HashSet<Vector3Int> validPos;
     HashSet<Vector3Int> playerPos;
+    HashSet<Vector3Int> shipPos;
+    HashSet<Vector3Int> monsterPos;
 
     GameObject currArrow;
     Vector3Int windDirection;
@@ -71,6 +75,8 @@ public class MapLoad : MonoBehaviour
     bool posSet = false;
     bool rotate = false;
     bool playerCombat = false;
+    bool shipCombat = false;
+    bool monsterCombat = false;
     Vector3 currPos;
 
     int[,] tilesInMap;
@@ -86,6 +92,8 @@ public class MapLoad : MonoBehaviour
         positions = new HashSet<Vector3Int>();
         validPos = new HashSet<Vector3Int>();
         playerPos = new HashSet<Vector3Int>();
+        shipPos = new HashSet<Vector3Int>();
+        monsterPos = new HashSet<Vector3Int>();
         tilesInMap = new int[80, 80];
         objectsInMap = new int[80, 80];
         modifyNames = new List<string>();
@@ -97,7 +105,6 @@ public class MapLoad : MonoBehaviour
         maxPlayers = 0;
         diceIndex = 0;
         moveCount = 0;
-
 
         treasureGoal.text = "Treasure Goal: " + PlayerPrefs.GetFloat("End").ToString();
 
@@ -131,7 +138,101 @@ public class MapLoad : MonoBehaviour
         {
             players[i] = ships[playerNums[i] - 1];
 
-            shipInfo.Add(new PlayerShip(i + 1));
+            int count = 0;
+            int crew = 0;
+            int damage = 0;
+            int treasure = 0;
+            int[] masts = new int[3];
+            int[] cannons = new int[5];
+            string[] lines = System.IO.File.ReadAllLines(Application.persistentDataPath + "/Player" + (i + 1).ToString() + ".txt");
+
+            foreach (string line in lines)
+            {
+                string temp;
+
+                if (line.Contains("mast"))
+                {
+                    if (line.Contains((count + 1).ToString()) && count < 3)
+                    {
+                        temp = line.Trim();
+
+                        if (temp.EndsWith("s"))
+                        {
+                            masts[count] = 1;
+                        }
+                        else if (temp.EndsWith("l"))
+                        {
+                            masts[count] = 2;
+                        }
+                        else
+                        {
+                            masts[count] = 0;
+                        }
+                    }
+                }
+
+                if (line.Contains("cannon"))
+                {
+                    if (line.Contains((count + 1).ToString()) && count < 5)
+                    {
+                        temp = line.Trim();
+
+                        if (temp.EndsWith("s"))
+                        {
+                            cannons[count] = 1;
+                        }
+                        else if (temp.EndsWith("l"))
+                        {
+                            cannons[count] = 2;
+                        }
+                        else
+                        {
+                            cannons[count] = 0;
+                        }
+                    }
+                }
+
+                if (line.Contains("crew"))
+                {
+                    if (line.Contains((count + 1).ToString()) && crew < 2)
+                    {
+                        temp = line.Trim();
+
+                        if (temp.EndsWith("t"))
+                        {
+                            crew++;
+                        }
+                    }
+                }
+
+                if (line.Contains("treasure"))
+                {
+                    if (line.Contains((count + 1).ToString()) && treasure < 3)
+                    {
+                        temp = line.Trim();
+
+                        if (temp.EndsWith("t"))
+                        {
+                            treasure++;
+                        }
+                    }
+                }
+
+                if (line.Contains("damage"))
+                {
+                    if (line.Contains((count + 1).ToString()) && damage < 2)
+                    {
+                        temp = line.Trim();
+
+                        if (temp.EndsWith("t"))
+                        {
+                            damage++;
+                        }
+                    }
+                }
+
+                shipInfo.Add(new PlayerShip(i + 1, players[i], masts, cannons, crew, treasure, damage));
+            }
         }
 
         //Destroy inactive players
@@ -172,7 +273,11 @@ public class MapLoad : MonoBehaviour
 
         LoadMap();
 
-        SetShips();
+        SetPlayerShips();
+        SetTreasureShips();
+        SetMonsters(); 
+
+        DisplayMoves(1);
 
         //Testing for switching sky
         //StartCoroutine(ChangeSky());
@@ -184,7 +289,7 @@ public class MapLoad : MonoBehaviour
     {
         MoveShip(players[playerIndex]);
 
-        if (!isMoving && !isRolling && !playerCombat)
+        if (!isMoving && !isRolling && !playerCombat && !shipCombat && !monsterCombat)
         {
             SetGUI(true, mainGUI);
         }
@@ -210,8 +315,13 @@ public class MapLoad : MonoBehaviour
             diceSet = true;
             clickable = true;
             playerCombat = false;
+            shipCombat = false;
+            monsterCombat = false;
             continueGame = false;
+            RenderSettings.skybox = skyBox[0];
         }
+
+        treasureCurrent.text = "Player Treasure: " + shipInfo[playerIndex].GetTreasure().ToString();
 
         /*
         //Arrow Key Movement
@@ -251,7 +361,7 @@ public class MapLoad : MonoBehaviour
         }
     }
 
-    public void SetShips()
+    void SetPlayerShips()
     {
         int count = 0;
         Transform transform;
@@ -272,12 +382,37 @@ public class MapLoad : MonoBehaviour
                     transform.position = new Vector3(transform.position.x, 4, transform.position.z);
                 }
 
-                shipInfo[count].SetCurrentPosition(transform.position);
-                shipInfo[count].SetPreviousPosition(transform.position);
+                shipInfo[count].SetCurrentPosition(tilemap.WorldToCell(transform.position));
+                shipInfo[count].SetPreviousPosition(tilemap.WorldToCell(transform.position));
 
                 count++;
            // }
         }
+    }
+
+    void SetTreasureShips()
+    {
+        GameObject ship = Instantiate(treasureShip);
+
+        ship.SetActive(true);
+
+        ship.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(17, -24, 0));
+        ship.transform.position = ship.transform.position + (Vector3.up / 2);
+
+        objectsInMap[17 + 34, (-24 - 32) * -1] = 1;
+    }
+    void SetMonsters()
+    {
+        GameObject monsterT = Instantiate(monster);
+
+        monsterT.SetActive(true);
+
+        monsterT.GetComponent<Monstermovement>().enabled = false;
+
+        monsterT.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(19, -24, 0));
+        monsterT.transform.position = monsterT.transform.position + Vector3.up;
+
+        objectsInMap[19 + 34, (-24 - 32) * -1] = 2;
     }
 
     public void LoadMap()
@@ -370,9 +505,38 @@ public class MapLoad : MonoBehaviour
 
                     hiddenBtns[1].onClick.Invoke();
 
+                    PlayerPrefs.SetString("Ship1", "PLAYER " + shipInfo[playerIndex].GetPlayerNum().ToString());
+
+                    ResultsManager.players[0] = shipInfo[playerIndex];
+
                     if (playerCombat)
                     {
+                        CannonMinigame.setPlayer = true;
+                        CannonMinigame.SetShips(GetEnemeyShip(), ship);
+
+                        PlayerPrefs.SetString("Enemy", "Player");
+
                         hiddenBtns[2].onClick.Invoke();
+                    }
+                    else if (shipCombat)
+                    {
+                        CannonMinigame.setTreasure = true;
+
+                        PlayerPrefs.SetString("Enemy", "Treasure");
+
+                        hiddenBtns[2].onClick.Invoke();
+                    }
+                    else
+                    {
+                        if (monsterCombat)
+                        {
+                            CannonMinigame.setMonster = true;
+                            CannonMinigame.SetMonster(monster);
+
+                            PlayerPrefs.SetString("Enemy", "Monster");
+
+                            hiddenBtns[2].onClick.Invoke();
+                        }
                     }
                 }
             }
@@ -381,6 +545,23 @@ public class MapLoad : MonoBehaviour
         {
             ProcessShip(ship);
         }
+    }
+
+    GameObject GetEnemeyShip()
+    {
+        foreach (PlayerShip player in shipInfo)
+        {
+            if (player.GetCurrentPosition() == shipInfo[playerIndex].GetCurrentPosition() && player.GetName() != shipInfo[playerIndex].GetName())
+            {
+                PlayerPrefs.SetString("Ship2", "PLAYER " + player.GetPlayerNum().ToString());
+
+                ResultsManager.players[1] = player;
+
+                return player.GetShip();
+            }
+        }
+
+        return null;
     }
 
     public void ClearActiveTiles()
@@ -427,13 +608,10 @@ public class MapLoad : MonoBehaviour
 
                 if (positions.Contains(gridPos) && validPos.Contains(gridPos))
                 {
-                    objectsInMap[prevGridPos.x + 34, (prevGridPos.y - 32) * -1] += 1;
-                    objectsInMap[gridPos.x + 34, (gridPos.y - 32) * -1] -= 1;
-
                     Vector3 pos = tilemap.GetCellCenterWorld(gridPos);
 
-                    shipInfo[playerIndex].SetPreviousPosition(players[playerIndex].transform.position);
-                    shipInfo[playerIndex].SetCurrentPosition(pos);
+                    shipInfo[playerIndex].SetPreviousPosition(prevGridPos);
+                    shipInfo[playerIndex].SetCurrentPosition(gridPos);
 
                     if (gridPos.x >= leftBound && gridPos.x <= rightBound && gridPos.y <= upperBound && gridPos.y >= lowerBound)
                     {
@@ -444,7 +622,31 @@ public class MapLoad : MonoBehaviour
 
                         if (playerPos.Contains(gridPos))
                         {
+                            objectsInMap[prevGridPos.x + 34, (prevGridPos.y - 32) * -1] += 1;
+                            objectsInMap[gridPos.x + 34, (gridPos.y - 32) * -1] -= 1;
+
                             playerCombat = true;
+                            clickable = false;
+                        }
+                        else
+                        {
+                            objectsInMap[prevGridPos.x + 34, (prevGridPos.y - 32) * -1] += 1;
+                            objectsInMap[gridPos.x + 34, (gridPos.y - 32) * -1] -= 1;
+                        }
+
+                        if (shipPos.Contains(gridPos))
+                        {
+                            objectsInMap[gridPos.x + 34, (gridPos.y - 32) * -1] = -1;
+
+                            shipCombat = true;
+                            clickable = false;
+                        }
+
+                        if (monsterPos.Contains(gridPos))
+                        {
+                            objectsInMap[gridPos.x + 34, (gridPos.y - 32) * -1] = -1;
+
+                            monsterCombat = true;
                             clickable = false;
                         }
                     }
@@ -549,7 +751,7 @@ public class MapLoad : MonoBehaviour
         GameObject temp;
         Transform transform;
 
-        if (objectPlaced < 0)
+        if (objectPlaced < 0 || objectPlaced > 0)
         {
             temp = Instantiate(positionTiles[1], tiles.transform);
         }
@@ -565,6 +767,17 @@ public class MapLoad : MonoBehaviour
             if (objectPlaced == -1)
             {
                 playerPos.Add(pos);
+            }
+            else if (objectPlaced == 1)
+            {
+                shipPos.Add(pos);
+            }
+            else
+            {
+                if (objectPlaced == 2)
+                {
+                    monsterPos.Add(pos);
+                }
             }
         }
 

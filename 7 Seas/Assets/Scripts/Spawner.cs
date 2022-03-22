@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     private int[] playerNums = null;
     private static int currentPlayer = 1;
     private int numPlayers = 0;
+    public static string coins;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,7 @@ public class Spawner : MonoBehaviour
         }
         if (numPlayers > 0)
         {
-            string coins = System.IO.File.ReadAllText(Application.persistentDataPath + "/Difficulty.txt");
+            coins = System.IO.File.ReadAllText(Application.persistentDataPath + "/Difficulty.txt");
             GameObject.Find("coins").GetComponent<Text>().text = coins;
             GameObject.Find("shipNum").GetComponent<Text>().text = playerNums[0].ToString();
             currentPlayer = 1;
